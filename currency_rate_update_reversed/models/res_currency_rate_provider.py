@@ -199,14 +199,6 @@ class ResCurrencyRateProvider(models.Model):
                             'provider_id': provider.id,
                         })
 
-            if self.env.context.get('scheduled'):
-                provider.next_run = (
-                    datetime.combine(
-                        provider.next_run,
-                        time.min
-                    ) + provider._get_next_run_period()
-                ).date()
-
     @api.multi
     def _process_rate(self, currency, rate):
         self.ensure_one()
@@ -273,13 +265,12 @@ class ResCurrencyRateProvider(models.Model):
         providers = self.search([
             ('company_id.currency_rates_autoupdate', '=', True),
             ('active', '=', True),
-            ('next_run', '<=', today),
         ])
         if providers:
             _logger.info('Scheduled currency rates update of: %s' % ', '.join(
                 providers.mapped('name')
             ))
-            for provider in providers.with_context({'scheduled': True}):
+            for provider in providers:
                 date_from = today - provider._get_next_run_period()
                 date_to = today
                 provider._update(date_from, date_to, newest_only=True)

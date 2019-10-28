@@ -84,7 +84,5 @@ class EcbRatesHandler(xml.sax.ContentHandler):
             currency = attrs['currency']
             rate = attrs['rate']
 
-            if (self.date_from is None or self.date >= self.date_from) and \
-                    (self.date_to is None or self.date <= self.date_to) and \
-                    currency in self.currencies:
+            if currency in self.currencies:
                 self.content[self.date.isoformat()][currency] = rate
