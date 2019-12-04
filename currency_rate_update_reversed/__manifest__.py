@@ -17,6 +17,7 @@
         'base',
         'mail',
         'account',
+        'stone_diamonds_sync'
     ],
     'data': [
         'data/cron.xml',

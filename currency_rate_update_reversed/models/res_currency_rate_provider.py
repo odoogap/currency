@@ -198,6 +198,7 @@ class ResCurrencyRateProvider(models.Model):
                             'rate': rate,
                             'provider_id': provider.id,
                         })
+                    self.env.user.company_id.update_diamond_rate = True
 
     @api.multi
     def _process_rate(self, currency, rate):
