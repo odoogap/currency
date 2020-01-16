@@ -11,10 +11,11 @@
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
         <field name="state">code</field>
-        <field name="nextcall" >2019-01-01 00:01:00</field>
+        <field name="nextcall">2019-01-01 00:01:00</field>
         <field name="doall" eval="False"/>
         <field name="model_id" ref="currency_rate_update_reversed.model_res_currency_rate_provider"/>
         <field name="code">model._scheduled_update()</field>
+        <field name="active" eval="False"/>
     </record>
 
 </odoo>
