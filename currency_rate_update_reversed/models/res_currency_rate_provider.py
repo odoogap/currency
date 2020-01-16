@@ -198,7 +198,6 @@ class ResCurrencyRateProvider(models.Model):
                             'rate': rate,
                             'provider_id': provider.id,
                         })
-                    self.env.user.company_id.update_diamond_rate = True
 
     @api.multi
     def _process_rate(self, currency, rate):
@@ -226,13 +225,13 @@ class ResCurrencyRateProvider(models.Model):
                     }
                 )
             elif inverted is None:
-                inverted = 1/direct
+                inverted = 1 / direct
             elif direct is None:
-                direct = 1/inverted
+                direct = 1 / inverted
         else:
             rate = float(rate)
             direct = rate
-            inverted = 1/rate
+            inverted = 1 / rate
 
         value = direct
         if currency_rate_inverted and \
@@ -290,18 +289,15 @@ class ResCurrencyRateProvider(models.Model):
             base_currency_rate = rate_value.get(base_currency)
             # set euro currency rate
             if get_euro_currency:
-                converted_rates['EUR'] = (1/float(base_currency_rate))
+                converted_rates['EUR'] = (1 / float(base_currency_rate))
 
             for cur_key, curr_value in rate_value.items():
 
                 if cur_key != base_currency:
-                    converted_rates[cur_key] = (float(curr_value)/float(base_currency_rate))
+                    converted_rates[cur_key] = (float(curr_value) / float(base_currency_rate))
 
             currency_rates[rate_key] = converted_rates
         return currency_rates
-
-
-
 
     @api.model
     def _obtain_rates(self, service, base_currency, currencies, date_from,
