@@ -1,8 +1,3 @@
-# Copyright 2009-2016 Camptocamp
-# Copyright 2010 Akretion
-# Copyright 2019 Brainbean Apps (https://brainbeanapps.com)
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
 import logging
 from datetime import datetime, time
 from dateutil.relativedelta import relativedelta
@@ -142,6 +137,7 @@ class ResCurrencyRateProvider(models.Model):
                     date_from,
                     date_to
                 ).items()
+
             except Exception as e:
                 provider.message_post(
                     body=str(e),
@@ -185,6 +181,7 @@ class ResCurrencyRateProvider(models.Model):
                         ('currency_id', '=', currency.id),
                         ('name', '=', timestamp),
                     ], limit=1)
+
                     if record:
                         record.write({
                             'rate': rate,
@@ -266,7 +263,9 @@ class ResCurrencyRateProvider(models.Model):
             ('company_id.currency_rates_autoupdate', '=', True),
             ('active', '=', True),
         ])
+
         if providers:
+
             _logger.info('Scheduled currency rates update of: %s' % ', '.join(
                 providers.mapped('name')
             ))

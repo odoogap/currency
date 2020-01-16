@@ -271,8 +271,7 @@ class ResCurrencyRateProvider(models.Model):
         today = fields.Date.today()
         providers = self.search([
             ('company_id.currency_rates_autoupdate', '=', True),
-            ('active', '=', True),
-            ('next_run', '<=', today),
+            ('active', '=', True)
         ])
         if providers:
             _logger.info('Scheduled currency rates update of: %s' % ', '.join(
