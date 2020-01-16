@@ -53,7 +53,7 @@ class ResCurrencyRateProviderECB(models.Model):
                 xml.sax.parse(response, handler)
 
             res = handler.content
-            
+
             if 'EUR' in currencies:
                 euro_in_currencies = True
 
